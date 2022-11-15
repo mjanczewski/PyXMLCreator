@@ -11,7 +11,8 @@ XMLStart = """<?xml version="1.0" encoding="utf-8"?>
 <reference><![CDATA[{{ p.Code }}]]></reference>
 <product_name><![CDATA[{{ p.NameNoHtml }}]]></product_name>"""
 
-XMLEnd = """{% if p.StockLevel < 101 -%}<quantity>{{ p.StockLevel | ToInt }}</quantity>{% else -%}<quantity>100+</quantity>{% endif -%}
+XMLEnd = """{% else -%}<price>{{ p.SubtotalPrice }}</price>{% endif -%}\n
+{% if p.StockLevel < 101 -%}<quantity>{{ p.StockLevel | ToInt }}</quantity>{% else -%}<quantity>100+</quantity>{% endif -%}
 <producent><![CDATA[{{ p.Brand }}]]></producent>
 <guarantee><![CDATA[{{ p.Attributes['Gwarancja'].Values[0] }}]]></guarantee>
 <ean13><![CDATA[{{ p.UPC }}]]></ean13>
@@ -39,7 +40,7 @@ for index, row in ceny.iterrows():
         CENA = str(row['CENA'])
         doXML = "{% if p.UPC == \'"+EAN+"\' -%}<price>"+CENA+"</price>\n"
         szablonXML = doXML
-    elif index < len(ceny)-1:
+    elif index <= len(ceny)-1:
         EAN = row['EAN']
         EAN = str(EAN)
         CENA = row['CENA']
@@ -47,13 +48,13 @@ for index, row in ceny.iterrows():
         doXML = "{% elseif p.UPC == '"+EAN+"' -%}<price>"+CENA+"</price>\n"
         szablonXML = szablonXML+doXML
 
-    else:
-        EAN = row['EAN']
-        EAN = str(EAN)
-        CENA = row['CENA']
-        CENA = str(row['CENA'])
-        doXML = "{% else p.UPC == '"+EAN+"' -%}<price>"+CENA+"</price>{% endif -%}\n"
-        szablonXML = szablonXML+doXML
+    # else:
+    #     EAN = row['EAN']
+    #     EAN = str(EAN)
+    #     CENA = row['CENA']
+    #     CENA = str(row['CENA'])
+    #     doXML = "{% else -%}<price>{{ p.SubtotalPrice }}</price>{% endif -%}\n"
+    #     szablonXML = szablonXML+doXML
 
 
 szablonTotal = XMLStart + szablonXML + XMLEnd
