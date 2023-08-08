@@ -1,1 +1,6 @@
 xmlcreator
+*xls
+*.xlsx
+*txt
+.idea
+.vscode
