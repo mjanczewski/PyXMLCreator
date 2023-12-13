@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 ceny = pd.read_excel('soteris.xlsx', dtype={'EAN': object})
 
 XMLStart = """<?xml version="1.0" encoding="utf-8"?>
@@ -44,7 +43,6 @@ for index, row in ceny.iterrows():
         CENA = str(round(row['CENA'],2))
         doXML = "{% elseif p.UPC == '"+EAN+"' -%}<price>"+CENA+"</price>\n"
         szablonXML = szablonXML+doXML
-
 
 
 szablonTotal = XMLStart + szablonXML + XMLEnd

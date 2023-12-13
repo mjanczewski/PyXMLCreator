@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 ceny_euro = pd.read_excel('ceny_xml.xlsx', dtype={'EAN': object, 'CENA':float})
 
 XMLStart = """<?xml version="1.0" encoding="utf-8"?>
