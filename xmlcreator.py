@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-ceny = pd.read_excel('ceny_xml_all.xlsx', dtype={'EAN': object})
+ceny = pd.read_excel('soteris.xlsx', dtype={'EAN': object})
 
 XMLStart = """<?xml version="1.0" encoding="utf-8"?>
 <products>
